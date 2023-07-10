@@ -189,3 +189,21 @@ func renderPage(w http.ResponseWriter, tmpl string, data jet.VarMap) error {
 // storage to communicate with the connected clients.
 // This approach ensures that client information is not tied to a specific server
 // and allows for a stateless architecture.
+
+// When the front-end client refreshes the page, the WebSocket connection is indeed disconnected and a new connection is established. In this scenario, you need a mechanism to identify and recognize the user as the same user who had the previous WebSocket connection.
+
+// One common approach is to use authentication and session management. When the user initially connects to the WebSocket, you can authenticate the user and generate a unique session identifier. This session identifier can be stored in a cookie or local storage on the client-side.
+
+// When the client refreshes the page and establishes a new WebSocket connection, the client can send the session identifier as part of the connection request. On the server-side, you can validate the session identifier to associate the new WebSocket connection with the same user.
+
+// Here's a high-level overview of how this can be implemented:
+
+// During the initial WebSocket connection, authenticate the user and generate a session identifier. Store this identifier on the server-side along with the associated WebSocket connection details.
+
+// Send the session identifier to the client and store it in a cookie or local storage.
+
+// When the client refreshes the page and establishes a new WebSocket connection, include the session identifier in the connection request headers or query parameters.
+
+// On the server-side, validate the session identifier. If it is valid, associate the new WebSocket connection with the user identified by the session identifier.
+
+// By using session management and associating WebSocket connections with user sessions, you can recognize the same user even after a page refresh or when establishing a new WebSocket connection.
